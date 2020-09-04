@@ -1,0 +1,24 @@
+{
+  "name": "tasklist-canda",
+  "version": "1.0.0",
+  "description": "A javascript application to make a list of todo tasks, gruoped by subject or projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carlosprietobarron/tasklist-canda.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/carlosprietobarron/tasklist-canda/issues"
+  },
+  "homepage": "https://github.com/carlosprietobarron/tasklist-canda#readme",
+  "devDependencies": {
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  }
+}

@@ -1,0 +1,9 @@
+body {
+    overflow-x: hidden;
+    font-family: 'Open sans', 'lato', sans-serif;
+    font-size: 10px;
+  }
+
+#navProj {
+    background: black;
+  }
