@@ -1,5 +1,6 @@
 import { DBproject } from './project';
 import { tabProject } from './projectTab';
+import { domUtils } from './domUtils'
 
 const tabContent = (function () {
 
@@ -10,8 +11,30 @@ const tabContent = (function () {
     document.getElementById("endDate").textContent = '';
   }
 
-  function toggleForm() {
+  function callSaveProject() {
+    let newPrj = {
+      name: document.getElementById("prj-Name-in").value,
+      description: document.getElementById("prj-Desc-in").value,
+      priority: document.querySelector('input[name = gridRadios]:checked').value
+    }
 
+    DBproject.newProject(newPrj);
+    let panelDisplay = document.getElementById("dispPrj");
+    let panelForm = document.getElementById("newForm");
+    panelDisplay.hidden = false;
+    panelForm.hidden = true;
+  }
+
+  function toggleForm(evt) {
+    const currentTab = evt.target.tabNumber;
+    const panelDisplay = document.getElementById("dispPrj");
+    const panelForm = document.getElementById("newForm");
+    panelDisplay.hidden = true;
+    panelForm.hidden = false;
+    tabProject.setCurrentTab(currentTab);
+    const setbtn = document.getElementById("saveBtn");
+    setbtn.onclick = callSaveProject;
+   
   }
 
   function createTabPanel(evt) {
@@ -24,16 +47,42 @@ const tabContent = (function () {
     const panelDisplay = document.getElementById("dispPrj");
     const panelForm = document.getElementById("newForm");
     panelDisplay.setAttribute("display", "block");
-    panelForm.setAttribute("display","hidden");
+    panelForm.hidden = true;
     tabProject.setCurrentTab(currentTab);
     document.getElementById("prjName").textContent = project.name;
     document.getElementById("prjDesc").textContent = project.description;
     document.getElementById("begDate").textContent = project.begDate;
-    document.getElementById("endDate").textContent = project.endDate;
-      
+    document.getElementById("endDate").textContent = project.endDate; 
 };
+  
+   function displayList(project) {
+     const panel = document.getElementById("col-list");
+     domUtils.deleteEleContent(panel);
 
-  return { createTabPanel };
+     const ulNav = document.createElement("ul");
+     domUtils.setAttributes(ulNav, {
+        class: "flex-column"
+     });
+     panel.appendChild(ulNav);
+
+     project.tasks.forEach(function (task) {
+       let liTask = document.createElement("li");
+       domUtils.setAttributes(liTask, {
+        class: "nav-item"
+       });
+       ulNav.appendChild(liTask);
+
+       let anchor=document.createElement("a");
+       domUtils.setAttributes(anchor, {
+        class: "nav-link",
+        href: "#",
+        textContent: task.name,
+       });
+
+     });
+   }
+
+  return { createTabPanel, toggleForm };
 
 })();
 

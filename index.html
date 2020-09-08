@@ -9,12 +9,14 @@
 	<link href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@500;600;700;800&display=swap" rel="stylesheet"> 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <title>Task Planning</title>
-
+      <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-firestore.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./css/style.css">
-    <script type="module" src="./dist/main.js" ></script>
+    
 </head>
 <body>
   <div  class="container" id="main-page">
@@ -54,7 +56,7 @@
                   </div>
                 </div>
                 <div class="col-5">
-                  <fieldset class="form-group" id="prj-grp-priority">
+                  <fieldset class = "form-group" id="prj-grp-priority">
                     <div class="row" id="priorityGrp">
                       <legend class="col-form-label col-sm-2 pt-0">Priority</legend>
                       <div class="col-sm-10" id="chkGRP">
@@ -80,15 +82,15 @@
                     </div>
                   </fieldset>
                   
-                  <div class="form-group row" id="prj-grp-dueDate">
+                  <div class = "form-group row" id = "prj-grp-dueDate">
                       <label for="prj-Due-in" class="col-sm-2 col-form-label">Due</label>
                       <div class="col-sm-10">
                         <input type="date" class="form-control" id="prj-Due-in">
                       </div>
                   </div>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                      <button type="button" class="btn btn-primary">Save</button>
+                  <div class = "form-group row">
+                    <div class = "col-sm-10">
+                      <button type = "button" clas s= "btn btn-primary" id = "saveBtn">Save</button>
                     </div>
                   </div>
                 </div>
@@ -98,12 +100,36 @@
 
         </div>
         <div class="row" id="row-tasks">
-            <div class="col col-md-3 col-lg-4" id="col-list"></div>
+            <div class="col col-md-3 col-lg-4" id="col-list">
+
+            </div>
             <div class="col col-md-9 col-lg-8" id="col-details"></div>
         </div>
       </div>    
   </div>
   
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAzOw26RziRNAWEuPr-n6k2rYUnlUEwZ8I",
+    authDomain: "taskslist-candas.firebaseapp.com",
+    databaseURL: "https://taskslist-candas.firebaseio.com",
+    projectId: "taskslist-candas",
+    storageBucket: "taskslist-candas.appspot.com",
+    messagingSenderId: "252558341123",
+    appId: "1:252558341123:web:14f32f52c65b3b62738a36"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+  
+  
+</script>
+<script type="module" src="./dist/main.js" ></script>
 </body>
 
 </html>

@@ -4,6 +4,31 @@ body {
     font-size: 10px;
   }
 
+ /* navbar */
+
 #navProj {
     background: black;
   }
+
+  /* project-area */
+  #row-project {
+    margin: 0;
+  }
+
+  #dispPrj {
+    margin-left: 0;
+    margin-bottom: 0;
+    height: 20rem;
+  }
+
+  #newForm {
+    margin-top: 2rem;
+  }
+  /* task list area */
+ 
+  #col-list {
+    height: 50vh;
+    background-color: rgb(64, 75, 97);
+    margin: 0;
+  }
+

@@ -19,6 +19,11 @@ const tabProject = ( function(){
     tabsCount +=1;
   };
 
+  function deletAddTab() {
+    const navtabs = document.getElementById("navtabs");
+    navtabs.removeChild(navtabs.lastChild);
+  }
+
   function createAddTab() {
     const navtabs = document.getElementById("navtabs");
     const anchor = document.createElement('a');
@@ -26,7 +31,7 @@ const tabProject = ( function(){
     anchor.setAttribute('href', '#tab-content');
     anchor.textContent = 'Add Project';
     anchor.onclick = tabContent.toggleForm;
-    anchor.prjId = `pr-${tabsCount}`;
+    //anchor.prjId = `pr-${tabsCount}`;
     anchor.tabNumber = tabsCount; 
     navtabs.appendChild(anchor);
     tabsCount +=1;
@@ -44,7 +49,7 @@ const tabProject = ( function(){
     return tabsCount;
   }
 
-  return { createTab, createAddTab ,setCurrentTab, getCurrentPrj, getTotalTabs };
+  return { createTab, deletAddTab, createAddTab ,setCurrentTab, getCurrentPrj, getTotalTabs };
 
 })();
 
