@@ -1,6 +1,8 @@
+import { taskPanel } from './taskPanel';
 import { DBproject } from './project';
 import { tabProject } from './projectTab';
 import { domUtils } from './domUtils'
+
 
 const tabContent = (function () {
 
@@ -9,6 +11,7 @@ const tabContent = (function () {
     document.getElementById("prjDesc").textContent = '';
     document.getElementById("begDate").textContent = '';
     document.getElementById("endDate").textContent = '';
+    taskPanel.resetTaskPanel();
   }
 
   function callSaveProject() {
@@ -23,6 +26,7 @@ const tabContent = (function () {
     let panelForm = document.getElementById("newForm");
     panelDisplay.hidden = false;
     panelForm.hidden = true;
+    
   }
 
   function toggleForm(evt) {
@@ -46,13 +50,14 @@ const tabContent = (function () {
     resetContent();
     const panelDisplay = document.getElementById("dispPrj");
     const panelForm = document.getElementById("newForm");
-    panelDisplay.setAttribute("display", "block");
+    panelDisplay.hidden = false;
     panelForm.hidden = true;
     tabProject.setCurrentTab(currentTab);
     document.getElementById("prjName").textContent = project.name;
     document.getElementById("prjDesc").textContent = project.description;
     document.getElementById("begDate").textContent = project.begDate;
     document.getElementById("endDate").textContent = project.endDate; 
+    taskPanel.putListOfTask(project.tasks);
 };
   
    function displayList(project) {

@@ -22,7 +22,7 @@ body {
   }
 
   #newForm {
-    margin-top: 2rem;
+    margin-top: 4rem;
   }
   /* task list area */
  
@@ -30,5 +30,10 @@ body {
     height: 50vh;
     background-color: rgb(64, 75, 97);
     margin: 0;
+  }
+
+  #listOfTask {
+    height: 90%;
+    width: 100%;
   }
 
