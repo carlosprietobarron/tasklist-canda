@@ -37,3 +37,8 @@ body {
     width: 100%;
   }
 
+  .tsk-link {
+    font-size: 2.5rem;
+    font-family: 'Baloo';
+  }
+ 

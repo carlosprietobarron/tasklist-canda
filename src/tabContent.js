@@ -57,7 +57,7 @@ const tabContent = (function () {
     document.getElementById("prjDesc").textContent = project.description;
     document.getElementById("begDate").textContent = project.begDate;
     document.getElementById("endDate").textContent = project.endDate; 
-    taskPanel.putListOfTask(project.tasks);
+    taskPanel.putListOfTask(project.tasks, project);
 };
   
    function displayList(project) {

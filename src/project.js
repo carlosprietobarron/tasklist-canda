@@ -61,7 +61,6 @@ const DBproject = ( function dbp(){
     const projectCollection = [];
 
     function addProject(doc) {
-      //projectCollection.push(new Project(doc.id,doc.data().name,doc.data().description,doc.data().dueDate,"0%"));
       projectCollection.push(new Project(doc.id, doc.name, doc.description, doc.dueDt,doc.priority));
       projectCollection[projectCollection.length - 1].tasks = [];
       return projectCollection.length - 1;
@@ -104,19 +103,7 @@ const DBproject = ( function dbp(){
                             ,"","0%"));
    }
 
-   function seedTasks() {
-       projectCollection[0].tasks.push(new Task("pr-0-tsk-0","Task 0","Review all the projects tasks daily","important"));
-       projectCollection[0].tasks.push(new Task("pr-0-tsk-1","daily meeting","Team daily meeting","important"));
-       projectCollection[0].tasks.push(new Task("pr-0-tsk-2","programming","Excute scheduled programming tasks","important"));
-       projectCollection[1].tasks.push(new Task("pr-1-tsk-0","Requirements gathering","Discover project's requirements","important"));
-       projectCollection[1].tasks.push(new Task("pr-1-tsk-1","programming","Excute scheduled programming tasks","important"));
-       projectCollection[2].tasks.push(new Task("pr-2-tsk-0","Requirements gathering","Discover project's requirements","important"));
-       projectCollection[2].tasks.push(new Task("pr-2-tsk-1","programming","Excute scheduled programming tasks","important"));
-       projectCollection[1].tasks.push(new Task("pr-2-tsk-2","Database design","Discover project's requirements","important"));
-       projectCollection[1].tasks.push(new Task("pr-2-tsk-3","Test","Excute scheduled programming tasks","important"));
-   }
-
-   function retrieveProjects() {
+    function retrieveProjects() {
       projectCollection.forEach(function (item, index) {
         //console.log(item);
         tabProject.createTab(item);     
@@ -130,7 +117,7 @@ const DBproject = ( function dbp(){
      
    }
 
-   return { addProject, getProject ,newProject, seedProject, seedTasks, retrieveProjects, projectCollection }
+   return { addProject, getProject ,newProject, seedProject, retrieveProjects, projectCollection }
 
 })();
 
