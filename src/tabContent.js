@@ -18,7 +18,8 @@ const tabContent = (function () {
     let newPrj = {
       name: document.getElementById("prj-Name-in").value,
       description: document.getElementById("prj-Desc-in").value,
-      priority: document.querySelector('input[name = gridRadios]:checked').value
+      priority: document.querySelector('input[name = gridRadios]:checked').value,
+      dueDate: document.getElementById("prj-Due-in").value
     }
 
     DBproject.newProject(newPrj);
@@ -55,8 +56,8 @@ const tabContent = (function () {
     tabProject.setCurrentTab(currentTab);
     document.getElementById("prjName").textContent = project.name;
     document.getElementById("prjDesc").textContent = project.description;
-    document.getElementById("begDate").textContent = project.begDate;
-    document.getElementById("endDate").textContent = project.endDate; 
+    document.getElementById("begDate").textContent = project.dueDt;
+    
     taskPanel.putListOfTask(project.tasks, project);
 };
   

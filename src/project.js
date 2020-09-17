@@ -4,13 +4,14 @@ import { Task, DBTasks } from './task'
 import { taskPanel } from './taskPanel';
 
 class Project {
-    constructor(id, name, description, dueDt, priority , progress) {
+    constructor(id, name, description, dueDt, priority , progress, nextTask) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.dueDt = dueDt;
         this.priority = priority;
         //this.progress = progress;
+        this.nextTask = nextTask;
         this.tasks = [];
     }
 
@@ -53,55 +54,104 @@ class Project {
         }
     }
 
-   // return {getId, getDescription, getName, getdueDt, getprogress, setprogress}
+
+    localStore(){
+        let projectSerialized = JSON.stringify(this);
+        console.log(projectSerialized);
+
+        if (typeof (Storage) !== "undefined") {
+          localStorage.setItem(this.id,projectSerialized);
+        }
+    }
+
+ 
 };
 
 
 const DBproject = ( function dbp(){
     const projectCollection = [];
-
+    
     function addProject(doc) {
-      projectCollection.push(new Project(doc.id, doc.name, doc.description, doc.dueDt,doc.priority));
+      projectCollection.push(new Project(doc.id, doc.name, doc.description, doc.dueDt, doc.priority, doc.nextTask));
       projectCollection[projectCollection.length - 1].tasks = [];
+      projectCollection[projectCollection.length - 1].localStore();
+      //addstorage
       return projectCollection.length - 1;
     }
 
     function getProject(id) {
-      var pos = projectCollection.findIndex(i => i.id === id);
+      let pos = projectCollection.findIndex(i => i.id === id);
       return pos;
     }
 
-    function newProject(params){
+    function getTaskIdx(prjIdx,taskId) {
+     return projectCollection[prjIdx].tasks.findIndex(i => i.id === taskId);
+    }
+
+    async function  getNextPrjId(){
+      let nextId;
+      const doc = await db.collection("parameters").doc("nextId").get();
+      console.log(doc.data());
+      nextId = doc.data().number;
+      
+      return nextId;
+    }
+
+    async function updatePrjId(newId){
+      let nextId = parseInt(newId) + 1;
+      const done = await db.collection("parameters").doc("nextId").update({
+          "number": nextId
+      });
+      console.log(done);
+    }
+    
+    async function getNextTaskId(prjId){
+      let nextId;
+      //const docRef = db.collection("projects").doc(prjId);
+      const doc = await db.collection("projects").doc(prjId).get()
+      nextId = doc.data().nextTask;
+      console.log('inside getNextTaskId');
+      return nextId;
+    }
+
+    async function newProject(params){
         let lastPrj=projectCollection[projectCollection.length-1];
         const lastNumber = lastPrj.id.substring(3);
-        const ipNew = 'pr-'+ (parseInt(lastNumber)+1);
-        projectCollection.push(new Project(ipNew,params.name, params.description, params.priority, "0%"));
+        //const ipNew = 'pr-'+ (parseInt(lastNumber)+1);
+        let idNew = await new Promise( resolve => {
+            resolve( getNextPrjId());
+        } )
+        const ipNew = 'pr-'+ (idNew);
+        projectCollection.push(new Project(ipNew,params.name, params.description, params.dueDate ,params.priority, "0%"));
 
         db.collection('projects').doc(ipNew).set({
             name: params.name,
             description: params.description,
-            dueDate: "01/01/2020",
+            dueDate: params.dueDate,
+            nextTask: 0,
             priority: params.priority 
-        }).then( function() {
+        }).then( async function() {
             tabProject.deletAddTab();
             lastPrj=projectCollection[projectCollection.length-1];
             tabProject.createTab(lastPrj);
             tabProject.createAddTab();
             domUtils.eventFire(ipNew,'click');
+            await new Promise( async () => {
+                updatePrjId(idNew);
+            })
+            
         })
         
 
     }
 
-    function seedProject(){
-      
-      projectCollection.push(new Project("pr-3","General-tasks","This it's the default group for unsorted task"
-                            ,"","0%"));
-      projectCollection.push(new Project("pr-4","Project TdoList","Project to construct a task manager"
-                            ,"","0%"));
-      projectCollection.push(new Project("pr-7","Project weather","This is an app for climate forecasting service"
-                            ,"","0%"));
-   }
+    async function updateTaskId(prjId, nextTask){
+        let nextId = parseInt(nextTask) + 1;
+        const done = await db.collection("projects").doc(prjId).update({
+            "nextTask": nextTask
+        });
+        console.log(nextTask);
+      }
 
     function retrieveProjects() {
       projectCollection.forEach(function (item, index) {
@@ -117,7 +167,7 @@ const DBproject = ( function dbp(){
      
    }
 
-   return { addProject, getProject ,newProject, seedProject, retrieveProjects, projectCollection }
+   return { addProject, getProject, getTaskIdx, getNextTaskId, updateTaskId ,newProject, retrieveProjects, projectCollection }
 
 })();
 

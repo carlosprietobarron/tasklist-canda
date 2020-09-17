@@ -1,4 +1,6 @@
 import { DBproject } from './project';
+import { Task } from './task';
+
  const retrieveCollection = async (pathToCol) => {
   let results =[];
   const docs = await db.collection(pathToCol).get() 
@@ -9,13 +11,16 @@ import { DBproject } from './project';
     let description = doc.data().description;
     let dueDt = doc.data().dueDate;
     let priority = doc.data().priority;
+    let nextTask = doc.data().nextTask;
     results.push (
+      
       {
         "id": id,
         "name": name,
         "description": description,
         "dueDt": dueDt,
-        "priority": priority
+        "priority": priority,
+        "nextTask": nextTask
       }
     )
     
@@ -30,17 +35,19 @@ const retrieveCollTask = async (pathToCol) => {
   console.log(docs);
   docs.forEach(doc => {
     results.push (
-      {
-        "id": doc.id,
-        "name": doc.data().name,
-        "notes": doc.data().notes,
-        "priority": doc.data().priority,
-        "prjId": doc.data().prjId
-      }
+      new Task( doc.id, doc.data().prjId, doc.data().name, doc.data().notes, doc.data().priority, doc.data().dueDate)
+      // {
+      //   "id": doc.id,
+      //   "prjId": doc.data().prjId,
+      //   "name": doc.data().name,
+      //   "notes": doc.data().notes,
+      //   "priority": doc.data().priority,
+      //   "dueDate": doc.data().dueDate
+      // }
     )
-    
+    results[results.length-1].localStore();
   })
-  //  console.log(`return ${results}`);
+  
   return results;
 } 
 
@@ -48,7 +55,6 @@ const retrieveCollTask = async (pathToCol) => {
 const getTasks = async (prjId) => {
     let pathToCol = `projects/${prjId}/tasks`
     let arrTsk = await retrieveCollTask(pathToCol);
-   
     return arrTsk;
 }
 
