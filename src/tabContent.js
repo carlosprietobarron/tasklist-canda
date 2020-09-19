@@ -14,6 +14,19 @@ const tabContent = (function () {
     taskPanel.resetTaskPanel();
   }
 
+  function resetProjectForm(){
+    let element = document.getElementById("prj-Name-in");
+    element.value = "";
+    element = document.getElementById("prj-Desc-in");
+    element.value = "";
+    const rbs = document.querySelectorAll('input[name="gridRadios"]');
+    
+    for (const rb of rbs) {
+     
+        rb.checked = false;       
+    }
+  }
+
   function callSaveProject() {
     let newPrj = {
       name: document.getElementById("prj-Name-in").value,
@@ -57,6 +70,7 @@ const tabContent = (function () {
     panelDisplay.hidden = false;
     panelForm.hidden = true;
     panelTask.hidden = false;
+    resetProjectForm();
     tabProject.setCurrentTab(currentTab);
     document.getElementById("prjName").textContent = project.name;
     document.getElementById("prjDesc").textContent = project.description;
