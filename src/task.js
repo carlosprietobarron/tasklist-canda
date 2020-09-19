@@ -1,6 +1,6 @@
 import { DBproject } from './project';
 import { taskPanel } from './taskPanel';
-import { } from './domUtils';
+import { domUtils } from './domUtils';
 
 class Task {
     constructor(id, prjId ,name, note, priority, dueDate ) {
@@ -47,6 +47,12 @@ const DBTasks =( function(){
     DBproject.projectCollection[idx].tasks[DBproject.projectCollection[idx].tasks.length-1].localStore();
 }
 
+  function saveTasksLocal(task) {
+    arr.forEach( tsk =>{
+
+    })
+  }
+
   function updateTaskInPrjCol(prjId,params){
     let prjIdx = DBproject.getProject(prjId);
     let taskIdx = DBproject.getTaskIdx(prjIdx,params.tskId);
@@ -82,18 +88,20 @@ const DBTasks =( function(){
     }).then( async  function() {
         if (state === 'new') { 0
           project.tasks.push(new Task(params.tskId, params.prjId, params.name, params.notes ,params.priority, params.dueDate));
-          DBproject.projectCollection[idx].tasks[DBproject.projectCollection[idx].tasks.length-1].localStore();
+          project.tasks[project.tasks.length-1].localStore();
           taskPanel.deleteAddBtn(); // pendiente
           let lastTsk = project.tasks[project.tasks.length-1];
-          taskPanel.createTaskBtn(lastTsk);
+          //taskPanel.createTaskBtn(lastTsk);
+          taskPanel.AddTheNewTask(lastTsk);
           let idx = idNew + 1;
+          let nexttskId = project.id+"-tsk-" + idx;
+          taskPanel.AddTheActionBtn(nexttskId, params.prjId);
+          
+          domUtils.eventFire(newTaskId,'click');
           await new Promise( async () => {
             DBproject.updateTaskId(params.prjId, idx);
-          })
-          //let newIx = DBproject.getNextTaskId(params.prjId);
-          let nexttskId = project.id+"-tsk-" + idx;
-          taskPanel.createAddBtn(nexttskId, params.prjId);
-          domUtils.eventFire(newTaskId,'click');
+            console.log("after update parameter");
+          });
         }  
     })
   }

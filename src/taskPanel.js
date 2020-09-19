@@ -145,7 +145,25 @@ const taskPanel = ( function () {
        anchorItem.tskId = tskId;
        resetTaskForm();
        return anchorItem;
-      }
+    }
+
+    function AddTheNewTask(task) {
+      const listOfTask = document.getElementById("listOfTask");
+      const liItem = document.createElement("li");
+      domUtils.setAttributes(liItem, {
+        class: "nav-item"
+      });
+      liItem.appendChild(createTaskBtn(task));
+      listOfTask.appendChild(liItem);
+    }
+
+    function AddTheActionBtn(tskId, prjId) {
+      const listOfTask = document.getElementById("listOfTask");
+      const liItem = document.createElement("li");
+      liItem.appendChild(createAddBtn(tskId, prjId));
+      
+      listOfTask.appendChild(liItem);
+    }
 
    function putListOfTask(taskList,project){
      const listOfTask = document.getElementById("listOfTask");
@@ -177,7 +195,7 @@ const taskPanel = ( function () {
       domUtils.eventFire(currentTaskId,'click');
    }
 
-     return { resetTaskPanel, deleteAddBtn, createAddBtn ,createTaskBtn, putListOfTask };
+     return { AddTheNewTask, AddTheActionBtn, resetTaskPanel, deleteAddBtn, createAddBtn ,createTaskBtn, putListOfTask };
   
 })();
 

@@ -34,8 +34,10 @@ const tabContent = (function () {
     const currentTab = evt.target.tabNumber;
     const panelDisplay = document.getElementById("dispPrj");
     const panelForm = document.getElementById("newForm");
+    const panelTask = document.getElementById("row-tasks");
     panelDisplay.hidden = true;
     panelForm.hidden = false;
+    panelTask.hidden = true;
     tabProject.setCurrentTab(currentTab);
     const setbtn = document.getElementById("saveBtn");
     setbtn.onclick = callSaveProject;
@@ -51,8 +53,10 @@ const tabContent = (function () {
     resetContent();
     const panelDisplay = document.getElementById("dispPrj");
     const panelForm = document.getElementById("newForm");
+    const panelTask = document.getElementById("row-tasks");
     panelDisplay.hidden = false;
     panelForm.hidden = true;
+    panelTask.hidden = false;
     tabProject.setCurrentTab(currentTab);
     document.getElementById("prjName").textContent = project.name;
     document.getElementById("prjDesc").textContent = project.description;
