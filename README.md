@@ -1,6 +1,6 @@
 # Tasklist Canda, Project tasks list application
 
-> Tasklist it's an web app, developed in Javascript and Firebase as backend store management with local storage for state storage, that helps you mantain a list of projects and their different tasks.
+> Tasklist it's an web app, developed in Javascript and Firebase as backend store management with localstorage for state storage, that helps you mantain a list of projects and their different tasks.
 
 ![screenshot](./screenshot.png)
 
