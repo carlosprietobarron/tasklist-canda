@@ -7,7 +7,7 @@ module.exports = {
         "airbnb-base"
     ],
     "parserOptions": {
-        "ecmaVersion": 12,
+        "ecmaVersion": "2018",
         "sourceType": "module"
     },
     "rules": {

@@ -13,13 +13,12 @@ const domUtils = (function du() {
     }
   };
 
-    const eventFire = (el) => {
+  const eventFire = (el) => {
     const element = document.getElementById(el);
-    
+
     element.dispatchEvent(new Event('click'));
   };
 
-  
   return { deleteEleContent, setAttributes, eventFire };
 }());
 

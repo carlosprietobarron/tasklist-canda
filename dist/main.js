@@ -94,7 +94,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"domUtils\", function() { return domUtils; });\nconst domUtils = (function du() {\n  const deleteEleContent = (elementId) => {\n    const tabContent = document.getElementById(elementId);\n    while (tabContent.firstChild) {\n      tabContent.firstChild.remove();\n    }\n    tabContent.innerHTML = '';\n  };\n\n  const setAttributes = (el, attrs) => {\n    for (const key in attrs) {\n      el.setAttribute(key, attrs[key]);\n    }\n  };\n\n    const eventFire = (el) => {\n    const element = document.getElementById(el);\n    \n    element.dispatchEvent(new Event('click'));\n  };\n\n  \n  return { deleteEleContent, setAttributes, eventFire };\n}());\n\n\n\n\n//# sourceURL=webpack:///./src/domUtils.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"domUtils\", function() { return domUtils; });\nconst domUtils = (function du() {\n  const deleteEleContent = (elementId) => {\n    const tabContent = document.getElementById(elementId);\n    while (tabContent.firstChild) {\n      tabContent.firstChild.remove();\n    }\n    tabContent.innerHTML = '';\n  };\n\n  const setAttributes = (el, attrs) => {\n    for (const key in attrs) {\n      el.setAttribute(key, attrs[key]);\n    }\n  };\n\n  const eventFire = (el) => {\n    const element = document.getElementById(el);\n\n    element.dispatchEvent(new Event('click'));\n  };\n\n  return { deleteEleContent, setAttributes, eventFire };\n}());\n\n\n\n\n//# sourceURL=webpack:///./src/domUtils.js?");
 
 /***/ }),
 
