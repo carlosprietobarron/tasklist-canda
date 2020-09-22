@@ -1,54 +1,56 @@
 body {
-    overflow-x: hidden;
-    font-family: 'Open sans', 'lato', sans-serif;
-    font-size: 10px;
-  }
+  overflow-x: hidden;
+  font-family: 'Open sans', 'lato', sans-serif;
+  font-size: 10px;
+}
 
- /* navbar */
+/* navbar */
 
 #navProj {
-    background: black;
-  }
+  background: black;
+}
 
-  /* project-area */
-  #row-project {
-    margin: 0;
-  }
+/* project-area */
 
-  #dispPrj {
-    width: 100%;
-  }
+#row-project {
+  margin: 0;
+}
 
-  #dispPrj {
-    margin-left: -1rem;
-    margin-bottom: 0;
-    height: 20rem;
-  }
+#dispPrj {
+  width: 100%;
+}
 
-  #col-details {
-    margin-top: 2rem;
-  }
+#dispPrj {
+  margin-left: -1rem;
+  margin-bottom: 0;
+  height: 20rem;
+}
 
-  #newForm {
-    margin-top: 4rem;
-  }
-  /* task list area */
+#col-details {
+  margin-top: 2rem;
+}
+
+#newForm {
+  margin-top: 4rem;
+}
+
+/* task list area */
  
-  #col-list {
-    height: 80vh;
-    background-color: rgb(64, 75, 97);
-    margin: 0;
-  }
+#col-list {
+  height: 80vh;
+  background-color: rgb(64, 75, 97);
+  margin: 0;
+}
 
-  #listOfTask {
-    height: 90%;
-    width: 100%;
-  }
+#listOfTask {
+  height: 90%;
+  width: 100%;
+}
 
-  .tsk-link {
-    margin: 0;
-    padding: 0;
-    font-size: 1.5rem;
-    font-family: 'Baloo';
-  }
- 
+.tsk-link {
+  margin: 0;
+  padding: 0;
+  font-size: 1.5rem;
+  font-family: 'Baloo';
+}
+
