@@ -1,33 +1,33 @@
-const domUtils = ( function() { 
-    function deleteEleContent(elementId) {
-        const tabContent = document.getElementById(elementId);
-        while (tabContent.firstChild) {
-          tabContent.firstChild.remove();
-        }
-        tabContent.innerHTML = '';
-      }
+const domUtils = (function du() {
+  const deleteEleContent = (elementId) => {
+    const tabContent = document.getElementById(elementId);
+    while (tabContent.firstChild) {
+      tabContent.firstChild.remove();
+    }
+    tabContent.innerHTML = '';
+  };
 
-      function setAttributes(el, attrs) {
-        for (var key in attrs) {
-          el.setAttribute(key, attrs[key]);
-        }
-      }
+  const setAttributes = (el, attrs) => {
+    for (const key in attrs) {
+      el.setAttribute(key, attrs[key]);
+    }
+  };
 
-      /* setAttributes(sectionElem, {
+  /* setAttributes(sectionElem, {
         class: "main_body",
         id: "nameid"
       }) */
 
-      function eventFire(el, etype){
-       const element = document.getElementById(el);
-       // const bool = elem.dispatchEvent("onclick");
-       
-       element.dispatchEvent(new Event("click"));
-      }
+  const eventFire = (el) => {
+    const element = document.getElementById(el);
+    // const bool = elem.dispatchEvent("onclick");
 
-      //eventFire(document.getElementById('mytest1'), 'click');
+    element.dispatchEvent(new Event('click'));
+  };
 
-    return { deleteEleContent, setAttributes, eventFire };
-})();
+  // eventFire(document.getElementById('mytest1'), 'click');
+
+  return { deleteEleContent, setAttributes, eventFire };
+}());
 
 export { domUtils };

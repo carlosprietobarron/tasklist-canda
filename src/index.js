@@ -1,41 +1,39 @@
 import { DBproject } from './project';
 import { Task } from './task';
 
- const retrieveCollection = async (pathToCol) => {
-  let results =[];
-  const docs = await db.collection(pathToCol).get() 
-  console.log(docs);
-  docs.forEach(doc => {
-    let id = doc.id;
-    let name = doc.data().name;
-    let description = doc.data().description;
-    let dueDt = doc.data().dueDate;
-    let priority = doc.data().priority;
-    let nextTask = doc.data().nextTask;
-    results.push (
-      
+const retrieveCollection = async (pathToCol) => {
+  const results = [];
+  const docs = await db.collection(pathToCol).get();
+  docs.forEach((doc) => {
+    const { id } = doc;
+    const { name } = doc.data();
+    const { description } = doc.data();
+    const dueDt = doc.data().dueDate;
+    const { priority } = doc.data();
+    const { nextTask } = doc.data();
+    results.push(
+
       {
-        "id": id,
-        "name": name,
-        "description": description,
-        "dueDt": dueDt,
-        "priority": priority,
-        "nextTask": nextTask
-      }
-    )
-    
-  })
+        id,
+        name,
+        description,
+        dueDt,
+        priority,
+        nextTask,
+      },
+    );
+  });
 
   return results;
-} 
+};
 
 const retrieveCollTask = async (pathToCol) => {
-  let results =[];
-  const docs = await db.collection(pathToCol).get() 
-  console.log(docs);
-  docs.forEach(doc => {
-    results.push (
-      new Task( doc.id, doc.data().prjId, doc.data().name, doc.data().notes, doc.data().priority, doc.data().dueDate)
+  const results = [];
+  const docs = await db.collection(pathToCol).get();
+  docs.forEach((doc) => {
+    results.push(
+      new Task(doc.id, doc.data().prjId, doc.data().name,
+        doc.data().notes, doc.data().priority, doc.data().dueDate),
       // {
       //   "id": doc.id,
       //   "prjId": doc.data().prjId,
@@ -44,41 +42,33 @@ const retrieveCollTask = async (pathToCol) => {
       //   "priority": doc.data().priority,
       //   "dueDate": doc.data().dueDate
       // }
-    )
-    results[results.length-1].localStore();
-  })
-  
-  return results;
-} 
+    );
+    results[results.length - 1].localStore();
+  });
 
+  return results;
+};
 
 const getTasks = async (prjId) => {
-    let pathToCol = `projects/${prjId}/tasks`
-    let arrTsk = await retrieveCollTask(pathToCol);
-    return arrTsk;
-}
-
+  const pathToCol = `projects/${prjId}/tasks`;
+  const arrTsk = await retrieveCollTask(pathToCol);
+  return arrTsk;
+};
 
 const getDatabase = async () => {
-  let pathToCol = 'projects';
-  let arrRaw = await retrieveCollection(pathToCol);
-  console.log(arrRaw);
-  arrRaw.forEach(doc => {
-   // console.log(doc);
+  const pathToCol = 'projects';
+  const arrRaw = await retrieveCollection(pathToCol);
+  arrRaw.forEach((doc) => {
     DBproject.addProject(doc);
-  })
-  
-  await Promise.all( DBproject.projectCollection.map(async (project) => {
+  });
+
+  await Promise.all(DBproject.projectCollection.map(async (project) => {
     let arrTask = [];
     arrTask = await getTasks(project.id);
     project.tasks = arrTask;
-    console.log(project.tasks);
   }));
 
-  console.log("ahora a poner los tabs");
   DBproject.retrieveProjects();
-}
+};
 
 getDatabase();
-
-
