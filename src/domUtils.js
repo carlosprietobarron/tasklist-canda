@@ -13,20 +13,13 @@ const domUtils = (function du() {
     }
   };
 
-  /* setAttributes(sectionElem, {
-        class: "main_body",
-        id: "nameid"
-      }) */
-
-  const eventFire = (el) => {
+    const eventFire = (el) => {
     const element = document.getElementById(el);
-    // const bool = elem.dispatchEvent("onclick");
-
+    
     element.dispatchEvent(new Event('click'));
   };
 
-  // eventFire(document.getElementById('mytest1'), 'click');
-
+  
   return { deleteEleContent, setAttributes, eventFire };
 }());
 
