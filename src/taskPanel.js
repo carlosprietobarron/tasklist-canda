@@ -20,7 +20,6 @@ const taskPanel = (function tkp() {
     rbs.forEach(rb => {
       rb.checked = false;
     });
-
   };
 
   const getTask = (project, id) => {
@@ -30,20 +29,19 @@ const taskPanel = (function tkp() {
 
   const validateForm = () => {
     let res = true;
-    if (document.getElementById('tsk-Name-in').value == "") {res = false};
-    if (document.getElementById('tsk-notes-in').value == "") {res = false};
+    if (document.getElementById('tsk-Name-in').value === '') { res = false; }
+    if (document.getElementById('tsk-notes-in').value === '') { res = false; }
     const rbs = document.querySelectorAll('input[name="tskRadios"]');
     for (const rb of rbs) {
-      res=false;
-      if (rb.checked ) {
+      res = false;
+      if (rb.checked) {
         res = true;
         break;
       }
-    };
-    if (document.getElementById('tsk-Due-in').value == "") {res = false};
+    }
+    if (document.getElementById('tsk-Due-in').value === '') { res = false; }
     return res;
-    
-  }
+  };
   const callSaveTask = (evt) => {
     if (validateForm()) {
       const newTsk = {
@@ -55,12 +53,11 @@ const taskPanel = (function tkp() {
         prjId: evt.target.prjId,
         state: evt.target.state,
       };
-  
+
       DBTasks.newTask(newTsk);
     } else {
-      alert("Please fill all the fields");
+      alert('Please fill all the fields');
     }
-    
   };
 
   const callDelTask = (evt) => {
@@ -78,7 +75,6 @@ const taskPanel = (function tkp() {
   };
 
   const openTaskForm = (evt) => {
-    
     resetTaskForm();
     const prjPos = DBproject.getProject(evt.target.prjId);
     const taskId = evt.target.tskId;

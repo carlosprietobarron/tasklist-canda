@@ -79,7 +79,7 @@ const DBTasks = (function dbt() {
       dueDate: params.dueDate,
     }).then(async () => {
       if (state === 'new') {
-        project.tasks.push(new Task(params.tskId, params.prjId, params.name, params.notes, params.priority, params.dueDate));
+        project.tasks.push(new Task(newTaskId, params.prjId, params.name, params.notes, params.priority, params.dueDate));
         project.tasks[project.tasks.length - 1].localStore();
         taskPanel.deleteAddBtn();
         const lastTsk = project.tasks[project.tasks.length - 1];
@@ -87,7 +87,6 @@ const DBTasks = (function dbt() {
         const idx = idNew + 1;
         const nexttskId = `${project.id}-tsk-${idx}`;
         taskPanel.AddTheActionBtn(nexttskId, params.prjId);
-
         domUtils.eventFire(newTaskId, 'click');
         await new Promise(() => {
           DBproject.updateTaskId(params.prjId, idx);
