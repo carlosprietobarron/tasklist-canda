@@ -34,14 +34,6 @@ const retrieveCollTask = async (pathToCol) => {
     results.push(
       new Task(doc.id, doc.data().prjId, doc.data().name,
         doc.data().notes, doc.data().priority, doc.data().dueDate),
-      // {
-      //   "id": doc.id,
-      //   "prjId": doc.data().prjId,
-      //   "name": doc.data().name,
-      //   "notes": doc.data().notes,
-      //   "priority": doc.data().priority,
-      //   "dueDate": doc.data().dueDate
-      // }
     );
     results[results.length - 1].localStore();
   });

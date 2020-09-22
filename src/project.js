@@ -9,7 +9,6 @@ class Project {
     this.description = description;
     this.dueDt = dueDt;
     this.priority = priority;
-    // this.progress = progress;
     this.nextTask = nextTask;
     this.tasks = [];
   }
@@ -69,7 +68,6 @@ const DBproject = (function dbp() {
       doc.dueDt, doc.priority, doc.nextTask));
     projectCollection[projectCollection.length - 1].tasks = [];
     projectCollection[projectCollection.length - 1].localStore();
-    // addstorage
     return projectCollection.length - 1;
   };
 

@@ -52,7 +52,6 @@ const tabContent = (function tc() {
   };
 
   const createTabPanel = (evt) => {
-    // here code to create each project panel
     const projectId = evt.target.prjId;
     const pos = DBproject.projectCollection.findIndex((i) => i.id === projectId);
     const project = DBproject.projectCollection[pos];
@@ -70,32 +69,6 @@ const tabContent = (function tc() {
 
     taskPanel.putListOfTask(project.tasks, project);
   };
-
-  // const displayList = (project) => {
-  //   const panel = document.getElementById('col-list');
-  //   domUtils.deleteEleContent(panel);
-
-  //   const ulNav = document.createElement('ul');
-  //   domUtils.setAttributes(ulNav, {
-  //     class: 'flex-column',
-  //   });
-  //   panel.appendChild(ulNav);
-
-  //   project.tasks.forEach((task) => {
-  //     const liTask = document.createElement('li');
-  //     domUtils.setAttributes(liTask, {
-  //       class: 'nav-item',
-  //     });
-  //     ulNav.appendChild(liTask);
-
-  //     const anchor = document.createElement('a');
-  //     domUtils.setAttributes(anchor, {
-  //       class: 'nav-link',
-  //       href: '#',
-  //       textContent: task.name,
-  //     });
-  //   });
-  // };
 
   return { createTabPanel, toggleForm };
 }());

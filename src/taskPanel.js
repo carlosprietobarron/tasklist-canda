@@ -21,9 +21,6 @@ const taskPanel = (function tkp() {
       rb.checked = false;
     });
 
-    // for (const rb of rbs) {
-    //   rb.checked = false;
-    // }
   };
 
   const getTask = (project, id) => {
@@ -31,18 +28,39 @@ const taskPanel = (function tkp() {
     return pos;
   };
 
-  const callSaveTask = (evt) => {
-    const newTsk = {
-      name: document.getElementById('tsk-Name-in').value,
-      notes: document.getElementById('tsk-notes-in').value,
-      priority: document.querySelector('input[name = "tskRadios"]:checked').value,
-      dueDate: document.getElementById('tsk-Due-in').value,
-      tskId: evt.target.tskId,
-      prjId: evt.target.prjId,
-      state: evt.target.state,
+  const validateForm = () => {
+    let res = true;
+    if (document.getElementById('tsk-Name-in').value == "") {res = false};
+    if (document.getElementById('tsk-notes-in').value == "") {res = false};
+    const rbs = document.querySelectorAll('input[name="tskRadios"]');
+    for (const rb of rbs) {
+      res=false;
+      if (rb.checked ) {
+        res = true;
+        break;
+      }
     };
-
-    DBTasks.newTask(newTsk);
+    if (document.getElementById('tsk-Due-in').value == "") {res = false};
+    return res;
+    
+  }
+  const callSaveTask = (evt) => {
+    if (validateForm()) {
+      const newTsk = {
+        name: document.getElementById('tsk-Name-in').value,
+        notes: document.getElementById('tsk-notes-in').value,
+        priority: document.querySelector('input[name = "tskRadios"]:checked').value,
+        dueDate: document.getElementById('tsk-Due-in').value,
+        tskId: evt.target.tskId,
+        prjId: evt.target.prjId,
+        state: evt.target.state,
+      };
+  
+      DBTasks.newTask(newTsk);
+    } else {
+      alert("Please fill all the fields");
+    }
+    
   };
 
   const callDelTask = (evt) => {
@@ -60,7 +78,7 @@ const taskPanel = (function tkp() {
   };
 
   const openTaskForm = (evt) => {
-    // get the project
+    
     resetTaskForm();
     const prjPos = DBproject.getProject(evt.target.prjId);
     const taskId = evt.target.tskId;
@@ -165,7 +183,6 @@ const taskPanel = (function tkp() {
     anchorItem.textContent = 'New Task';
     anchorItem.onclick = createTaskForm;
     anchorItem.prjId = prjId;
-    // anchorItem.id = `btn-${tskId}`
     anchorItem.tskId = tskId;
     resetTaskForm();
     return anchorItem;
@@ -212,7 +229,6 @@ const taskPanel = (function tkp() {
     const prjId = project.id;
     const idx = project.tasks.length;
     const tskId = `${project.id}-tsk-${idx}`;
-    // let newIx = DBproject.getNextTaskId(prjId);
     liItem.appendChild(createAddBtn(tskId, prjId));
     listOfTask.appendChild(liItem);
     domUtils.eventFire(currentTaskId, 'click');

@@ -81,9 +81,8 @@ const DBTasks = (function dbt() {
       if (state === 'new') {
         project.tasks.push(new Task(params.tskId, params.prjId, params.name, params.notes, params.priority, params.dueDate));
         project.tasks[project.tasks.length - 1].localStore();
-        taskPanel.deleteAddBtn(); // pendiente
+        taskPanel.deleteAddBtn();
         const lastTsk = project.tasks[project.tasks.length - 1];
-        // taskPanel.createTaskBtn(lastTsk);
         taskPanel.AddTheNewTask(lastTsk);
         const idx = idNew + 1;
         const nexttskId = `${project.id}-tsk-${idx}`;
@@ -106,24 +105,10 @@ const DBTasks = (function dbt() {
   };
 
   const deleteTask = (params) => {
-    // borrar de firebase
     delFromFireB(params.tskId, params.prjId);
     DBproject.delTaskItem(params.tskId, params.prjId);
     domUtils.eventFire(params.prjId, 'click');
   };
-
-  /* const getTasks = (docId) => {
-    prjTaskList = [];
-    db.collection('projects').doc(docId).collection('tasks').get()
-      .then(
-        (snaptshot) => {
-          snaptshot.docs.forEach((doc) => {
-            console.log(doc.data());
-            addTask(doc);
-          });
-        },
-      );
-  }; */
 
   const getTaskList = () => prjTaskList;
 

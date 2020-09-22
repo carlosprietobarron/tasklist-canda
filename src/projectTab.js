@@ -30,7 +30,6 @@ const tabProject = (function tbp() {
     anchor.setAttribute('href', '#tab-content');
     anchor.textContent = 'Add Project';
     anchor.onclick = tabContent.toggleForm;
-    // anchor.prjId = `pr-${tabsCount}`;
     anchor.tabNumber = tabsCount;
     navtabs.appendChild(anchor);
     tabsCount += 1;
