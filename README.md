@@ -14,7 +14,7 @@
 
 ## Live Demo
 
-[Tasklist CandA](https://rawcdn.githack.com/carlosprietobarron/tasklist-canda/044d53a552939d74705e9b13056bf669dac6c809/index.html#tab-content)
+[Tasklist CandA](https://rawcdn.githack.com/carlosprietobarron/tasklist-canda/62af1af50774c957514ac60ca33db0ef806b569d/index.html#)
 
 ## How to install
 
