@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@500;600;700;800&display=swap" rel="stylesheet"> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Task Planning</title>
+      <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-firestore.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./css/style.css">
+    
+</head>
+<body>
+  <div  class="container" id="main-page">
+      <nav class="navbar navbar-dark fixed-top" id="navProj">
+          <nav class="nav nav-tabs nav-stacked" id="navtabs">
+
+          </nav>          
+      </nav>
+
+      <div id="tab-content">
+        <div class="row" id="row-project">
+          <div class="jumbotron" id="dispPrj">
+              <h1 class="display-4" id="prjName">Candas Task List</h1>
+              <p class="lead" id="prjDesc">Wellcome to Candas Tasklist!</p>
+              <hr class="my-4">
+              <p id="begDate" >Date</p>
+              <p id="endDate" >Date</p>
+              <!-- <a class="btn btn-primary btn-lg" href="#" role="button" id="modbtn">Modify</a>
+              <a class="btn btn-primary btn-lg" href="#" role="button" id="delbtn">Delete</a> -->
+          </div>
+          <div id="newForm">
+              <form>
+               <div class="form-row">   
+                <div class="col-7">
+                  <div class="form-group row" id="prj-grp-name">
+                    <label for="prj-Name-in" class="col-sm-2 col-form-label">Name</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="prj-Name-in">
+                    </div>
+                  </div>
+
+                  <div class="form-group row" id="prj-grp-description">
+                      <label for="prj-Desc-in" class="col-sm-2 col-form-label">Description</label>
+                      <div class="col-sm-10">
+                        <textarea type="text" class="form-control" id="prj-Desc-in" rows="5" cols="50"></textarea>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-5">
+                  <fieldset class = "form-group" id="prj-grp-priority">
+                    <div class="row" id="priorityGrp">
+                      <legend class="col-form-label col-sm-2 pt-0">Priority</legend>
+                      <div class="col-sm-10" id="chkGRP">
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="Important" checked>
+                          <label class="form-check-label" for="gridRadios1">
+                            Important
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="Regular">
+                          <label class="form-check-label" for="gridRadios2">
+                            Regular
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="Unimportant">
+                          <label class="form-check-label" for="gridRadios3">
+                            Unimportant
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+                  
+                  <div class = "form-group row" id = "prj-grp-dueDate">
+                      <label for="prj-Due-in" class="col-sm-2 col-form-label">Due</label>
+                      <div class="col-sm-10">
+                        <input type="date" class="form-control" id="prj-Due-in">
+                      </div>
+                  </div>
+                  <div class = "form-group row">
+                    <div class = "col-sm-10">
+                      <button type = "button" class= "btn btn-primary" id = "saveBtn">Save</button>
+                    </div>
+                    
+                  </div>
+                </div>
+               </div> 
+              </form>
+          </div>
+
+        </div>
+        <div class="row" id="row-tasks">
+            <div class="col col-md-3 col-lg-4" id="col-list">
+              <div class="tasklist" ></div>
+              <ul class="nav nav-pills flex-column" id = "listOfTask">
+
+              </ul>
+            </div>
+            <div class="col col-md-9 col-lg-8" id="col-details">
+              <div id="newTaskForm">
+                <form>
+                 <div class="form-row">   ..
+                  <div class="col-7">
+                    <div class="form-group row" id="tsk-grp-name">
+                      <label for="tsk-Name-in" class="col-sm-2 col-form-label">Name</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="tsk-Name-in">
+                      </div>
+                    </div>
+  
+                    <div class="form-group row" id="tsk-grp-notes">
+                        <label for="tsk-notes-in" class="col-sm-2 col-form-label">Description</label>
+                        <div class="col-sm-10">
+                          <textarea type="text" class="form-control" id="tsk-notes-in" rows="5" cols="50"></textarea>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <fieldset class = "form-group" id="tsk-grp-priority">
+                      <div class="row" id="priorityGrp">
+                        <legend class="col-form-label col-sm-2 pt-0">Priority</legend>
+                        <div class="col-sm-10" id="chkGRP">
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="tskRadios" id="gridRadios1" value="Important" checked>
+                            <label class="form-check-label" for="gridRadios1">
+                              Important
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="tskRadios" id="gridRadios2" value="Regular">
+                            <label class="form-check-label" for="gridRadios2">
+                              Regular
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="tskRadios" id="gridRadios3" value="Unimportant">
+                            <label class="form-check-label" for="gridRadios3">
+                              Unimportant
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset id="ids-grp">
+                      <input type="hidden" class="form-control invisible-control" id="tsk-tskid-in">
+                      <input type="hidden" class="form-control invisible-control" id="tsk-prjid-in">
+                      <input type="hidden" class="form-control invisible-control" id="tsk-state-in">
+                    </fieldset>
+                    
+                    <div class = "form-group row" id = "tsk-grp-dueDate">
+                        <label for="tsk-Due-in" class="col-sm-2 col-form-label">Due</label>
+                        <div class="col-sm-10">
+                          <input type="date" class="form-control" id="tsk-Due-in">
+                        </div>
+                    </div>
+                    <div class = "form-group row">
+                      <div class = "col-sm-5">
+                        <button type = "button" class= "btn btn-primary" id = "saveBtnTsk">Save</button>
+                      </div>
+                      <div class = "col-sm-5">
+                        <button type = "button" class= "btn btn-primary" id = "delBtn">Delete</button>
+                      </div>
+                    </div>
+                  </div>
+                 </div> 
+                </form>
+              </div>
+            </div>
+        </div>
+      </div>    
+  </div>
+  
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+
+<script>
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAzOw26RziRNAWEuPr-n6k2rYUnlUEwZ8I",
+    authDomain: "taskslist-candas.firebaseapp.com",
+    databaseURL: "https://taskslist-candas.firebaseio.com",
+    projectId: "taskslist-candas",
+    storageBucket: "taskslist-candas.appspot.com",
+    messagingSenderId: "252558341123",
+    appId: "1:252558341123:web:14f32f52c65b3b62738a36"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+</script>
+
+<script type="module" src="./dist/main.js" ></script>
+</body>
+
+</html>
